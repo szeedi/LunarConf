@@ -15,6 +15,15 @@ lvim.keys.normal_mode["<C-s>"] = "<Cmd>:w<CR>"
 
 lvim.builtin.terminal.open_mapping = "<C-t>"
 
+-- Terminal and WhichKey binding
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Terminal",
+  f = { "<cmd>ToggleTerm<cr>", "Floating terminal" },
+  v = { "<cmd>2ToggleTerm size=30 direction=vertical<cr>", "Split vertical" },
+  h = { "<cmd>2ToggleTerm size=30 direction=horizontal<cr>", "Split horizontal" },
+}
+
+
 -- Custom Plugins
 
 lvim.plugins = {
