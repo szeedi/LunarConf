@@ -3,14 +3,18 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 -- install plugins
---
-
+-- add `pyright` to `skipped_servers` list
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+-- remove `jedi_language_server` from `skipped_servers` list
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+  return server ~= "jedi_language_server"
+end, lvim.lsp.automatic_configuration.skipped_servers)
 -- Custom Keymaps
 
 -- Buffer Navigation
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-x>"] = ":BufferKill<CR>"
+lvim.keys.normal_mode["<A-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<A-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<C-w>"] = ":BufferKill<CR>"
 lvim.keys.normal_mode["<C-s>"] = "<Cmd>:w<CR>"
 
 lvim.builtin.terminal.open_mapping = "<C-t>"
@@ -27,6 +31,7 @@ lvim.builtin.which_key.mappings["t"] = {
 -- Custom Plugins
 
 lvim.plugins = {
+  "nvim-neotest/nvim-nio",
   "ChristianChiarulli/swenv.nvim",
   "stevearc/dressing.nvim",
   "mfussenegger/nvim-dap-python",
@@ -47,6 +52,7 @@ lvim.plugins = {
 lvim.builtin.treesitter.ensure_installed = {
   "python",
 }
+
 
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -97,3 +103,5 @@ lvim.builtin.which_key.mappings["C"] = {
   name = "Python",
   c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
 }
+
+vim.opt.clipboard = "unnamedplus"
